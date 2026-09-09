@@ -17,12 +17,13 @@ Learn Linux command-line basics and cybersecurity concepts through hands-on chal
 
 ## 📚 Levels Completed
 
-* [Level 0 → Level 1](./Level-00/)
-* [Level 1 → Level 2](./Level-01/)
-* [Level 2 → Level 3](./Level-02/)
-* [Level 3 → Level 4](./Level-03/)
-* [Level 4 → Level 5](./Level-04/)
-* [Level 5 → Level 6](./Level-05/)
+* [Level 0](./Level-00/)
+* [Level 0 → Level 1](./Level-00-01/)
+* [Level 1 → Level 2](./Level-01-02/)
+* [Level 2 → Level 3](./Level-02-03/)
+* [Level 3 → Level 4](./Level-03-04/)
+* [Level 4 → Level 5](./Level-04-05/)
+* [Level 5 → Level 6](./Level-05-06/)
 
 ## 🧠 What I’m Learning
 
