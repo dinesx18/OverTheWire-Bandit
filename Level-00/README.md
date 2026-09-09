@@ -46,5 +46,28 @@ The terminal prompt changed to:
 ```text
 bandit0@bandit:~$
 ```
+This prompt tells me information about my current session:
+
+- bandit0 → The username I am currently logged in as.
+- @ → Separates the username from the hostname.
+- bandit → The hostname of the remote machine.
+- : → Separates the hostname from the current directory.
+- ~ → Represents the user's home directory.
+- $ → Indicates that I am logged in as a normal user, not the root user.
 
 <img width="637" height="1280" alt="Screenshot 2026-09-09 193711 (2)" src="https://github.com/user-attachments/assets/66b05baf-414b-4cac-b7e7-fc4ac8fe9e63" />
+
+## 🧠 What We Learned
+
+1. `ssh` → Used to securely connect to a remote Linux machine.
+2. `bandit0` → The username used to log in to Bandit Level 0.
+3. `@` → Separates the username from the hostname.
+4. `bandit.labs.overthewire.org` → The hostname of the remote Bandit server.
+5. `-p` → Specifies the port that SSH should use.
+6. `2220` → The port used by the Bandit SSH service.
+7. `bandit0@bandit:~$` → Shows that I am logged in as the `bandit0` user on the remote `bandit` machine.
+8. `:` → Separates the hostname from the current directory.
+9. `~` → Represents the user's home directory.
+10. `$` → Indicates that I am logged in as a normal user, not the root user.
+11. `password` → Used to authenticate and log in to the Bandit server.
+
