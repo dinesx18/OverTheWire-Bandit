@@ -1,10 +1,13 @@
-# Bandit Level 0 --> Level 1
+# 🏴 Bandit Level 0 → Level 1
 
-<img width="1667" height="632" alt="Screenshot 2026-09-09 211256" src="https://github.com/user-attachments/assets/62c1e47b-1871-44d5-bef6-a6b03da974fc" />
+<img width="1667" height="632" alt="Screenshot 2026-09-09 211256" src="https://github.com/user-attachments/assets/8230f8c8-4423-450c-94e4-af0f4e1f23a0" />
 
-## 📂 Step 3 — Check the Current Directory
 
-After successfully logging into the Bandit server, I first checked my current location using:
+After successfully logging into the Bandit Level 0 server, I started looking for the password required for the next level.
+
+## 📂 Step 1 — Check the Current Directory
+
+I first used:
 
 ```bash
 pwd
@@ -14,7 +17,7 @@ pwd
 
 `pwd` stands for **Print Working Directory**.
 
-It shows the full path of the directory I am currently working in.
+It displays the full path of the directory I am currently working in.
 
 The output was:
 
@@ -22,11 +25,11 @@ The output was:
 /home/bandit0
 ```
 
-This tells me that I am currently inside the `bandit0` user's home directory.
+This shows that I am currently inside the `bandit0` user's home directory.
 
 ---
 
-## 📋 Step 4 — List the Files
+## 📋 Step 2 — List the Files
 
 Next, I used:
 
@@ -38,23 +41,21 @@ ls
 
 `ls` stands for **list**.
 
-It displays the files and directories available in the current directory.
+It displays the files and directories in the current directory.
 
-The output was:
+The output showed:
 
 ```text
 readme
 ```
 
-This tells me that there is a file named `readme` in the current directory.
-
-At this point, I know that the `readme` file may contain useful information for completing the level.
+This tells me that a file named `readme` exists in the current directory.
 
 ---
 
-## 📖 Step 5 — Read the `readme` File
+## 📖 Step 3 — Read the `readme` File
 
-I used the following command:
+Since I found a file named `readme`, I used:
 
 ```bash
 cat readme
@@ -62,24 +63,18 @@ cat readme
 
 ### 🔎 What is `cat`?
 
-`cat` is a Linux command commonly used to display the contents of a file directly in the terminal.
+`cat` is a Linux command commonly used to display the contents of a file.
 
 In this command:
 
-```bash
-cat readme
-```
-
 - `cat` → displays the contents of a file.
-- `readme` → the name of the file I want to read.
+- `readme` → the file I want to read.
 
-The command displayed a message from the Bandit server.
-
-It also provided the password needed for the next level.
+The command displayed the contents of the `readme` file, which contained the password for the next level.
 
 ---
 
-## 🔑 Step 6 — Copy the Password for Bandit Level 1
+## 🔑 Step 4 — Copy the Password for Level 1
 
 After running:
 
@@ -87,86 +82,26 @@ After running:
 cat readme
 ```
 
-the terminal displays the password for the next level.
+the terminal displayed the password for the next level.
 
-I copied the password shown after:
+I copied the password from the terminal.
 
-```text
-The password you are looking for is:
-```
+This password is used to authenticate as the `bandit1` user.
 
-This password is needed to log in to **Bandit Level 1**.
-
-### 📋 Copy the Password
-
-I selected the password from the terminal and copied it.
-
-The password is not a new command. It is the **login credential for the next level**.
-
-I then use this password when SSH asks for the password while logging in as `bandit1`.
+> ⚠️ The password is not included here because this is a public GitHub write-up.
 
 ---
-
-## 🔐 Step 7 — Connect to Bandit Level 1
-
-The username changes from:
-
-```text
-bandit0
-```
-
-to:
-
-```text
-bandit1
-```
-
-The server and port remain the same.
-
-I use:
-
-```bash
-ssh bandit1@bandit.labs.overthewire.org -p 2220
-```
-
-After running the command, the terminal asks:
-
-```text
-bandit1@bandit.labs.overthewire.org's password:
-```
-
-I paste the password I copied from the `readme` file and press **Enter**.
-
-If the password is correct, I successfully enter **Bandit Level 1**.
-
-### 🔄 The Process
-
-```text
-cat readme
-      ↓
-Password is displayed
-      ↓
-Copy the password
-      ↓
-SSH as bandit1
-      ↓
-Paste the password
-      ↓
-Enter
-      ↓
-Bandit Level 1
-```
 
 ## 🖥️ Terminal Screenshot
 
-<img width="1717" height="278" alt="image" src="https://github.com/user-attachments/assets/cfc905eb-e5c5-414f-9b65-338b837b3b31" />
+<img width="1717" height="278" alt="Screenshot 2026-09-09 211910" src="https://github.com/user-attachments/assets/1e196669-55df-402b-bf3f-25ec53de56eb" />
 
 
 ---
 
-## 🔄 Step 7 — Connect to Bandit Level 1
+## 🔐 Step 5 — Connect to Bandit Level 1
 
-After obtaining the password, I can connect to the next level using SSH.
+Now that I have the password for the next level, I need to log in as `bandit1`.
 
 The username changes from:
 
@@ -180,71 +115,69 @@ to:
 bandit1
 ```
 
-The server and port remain the same:
+I use the same Bandit server and SSH port that I learned in Level 0.
 
-```text
-bandit.labs.overthewire.org
-```
-
-and:
-
-```text
-2220
-```
-
-The SSH command is:
+The command is:
 
 ```bash
 ssh bandit1@bandit.labs.overthewire.org -p 2220
 ```
 
-When prompted, I enter the password that I obtained from the `readme` file.
+The server then asks for the password.
+
+I paste the password that I obtained from the `readme` file and press **Enter**.
+
+If the password is correct, I am logged into **Bandit Level 1**.
 
 ---
 
-## 🧠 What I Learned
-
-In Level 0 → Level 1, I learned how to:
-
-- Use `pwd` to find my current directory.
-- Use `ls` to list files.
-- Identify the `readme` file.
-- Use `cat` to read a file.
-- Find the password for the next level.
-- Use the next level's username with SSH.
-- Reuse the same server and port for the next level.
-
-### 🛠️ Commands Used
-
-| Command | Purpose |
-|---|---|
-| `pwd` | Shows the current working directory |
-| `ls` | Lists files and directories |
-| `cat readme` | Displays the contents of the `readme` file |
-| `ssh bandit1@bandit.labs.overthewire.org -p 2220` | Connects to Level 1 |
-
-## 🎓 Level 0 → Level 1 Summary
+## 🔄 Level 0 → Level 1 Process
 
 ```text
-Logged in as bandit0
+Already logged in as bandit0
         ↓
 pwd
         ↓
-Found /home/bandit0
+Check current directory
         ↓
 ls
         ↓
-Found readme
+Find readme
         ↓
 cat readme
         ↓
-Found the password for Level 1
+Read the next-level password
         ↓
-Connect as bandit1
+Copy the password
         ↓
-Level 1 started
+SSH as bandit1
+        ↓
+Enter the password
+        ↓
+Level 1
 ```
+
+## 🧠 What I Learned
+
+- `pwd` shows the current working directory.
+- `ls` lists files and directories.
+- `cat` displays the contents of a file.
+- The `readme` file contained the password for the next level.
+- Each Bandit level uses a different username.
+- The password found in one level is used to access the next level.
+
+## 🎓 Key Takeaway
+
+The important commands I learned in Level 0 → Level 1 were:
+
+```bash
+pwd
+ls
+cat readme
+```
+
+These commands helped me locate and read the file containing the password for the next level.
 
 ## ➡️ Next
 
-Now I can begin **Bandit Level 1 → Level 2**.
+After obtaining the password, I successfully moved from **Bandit Level 0 to Level 1**.
