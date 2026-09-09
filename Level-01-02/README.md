@@ -41,6 +41,9 @@ After completing Level 0, I logged into Bandit Level 1 using the password I foun
 
 ## 📋 Step 1 — Check the Files
 
+<img width="1722" height="110" alt="image" src="https://github.com/user-attachments/assets/ee55aa03-12e1-4769-a7d3-f136d6023d43" />
+
+
 I first used:
 
 ```bash
@@ -98,6 +101,10 @@ So `cat -` is **not the correct way to read this file**.
 
 ## 🛠️ Step 3 — Read the File Using `./`
 
+<img width="1717" height="67" alt="image" src="https://github.com/user-attachments/assets/2ec2c4d5-f0d8-4565-9b2c-c7a3b3c54f88" />
+
+---
+
 To tell Linux that `-` is a filename in the current directory, I use:
 
 ```bash
@@ -151,9 +158,9 @@ bandit2
 
 ## 🖥️ Terminal Screenshot
 
-<img width="YOUR-WIDTH" height="YOUR-HEIGHT" alt="Bandit Level 1 to Level 2" src="YOUR-IMAGE-URL-HERE" />
+<img width="1717" height="158" alt="image" src="https://github.com/user-attachments/assets/686b192f-0ae4-4353-8664-d4048b17f72e" />
 
----
+
 
 ## 🧠 What I Learned
 
@@ -177,4 +184,4 @@ Using `./` tells Linux that `-` is the name of a file in the current directory.
 
 ## ➡️ Next
 
-The password found in the `-` file is used to continue to **Bandit Level 2**.
+The password found in the `-` file is used to continue to **Bandit Level 2-3**.
