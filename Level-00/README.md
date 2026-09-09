@@ -37,4 +37,14 @@ For Level 0 password is:
 Password: bandit0
 ```
 
+## ✅ Successful Login
+
+After entering the correct password, I successfully logged into the Bandit server.
+
+The terminal prompt changed to:
+
+```text
+bandit0@bandit:~$
+```
+
 <img width="637" height="1280" alt="Screenshot 2026-09-09 193711 (2)" src="https://github.com/user-attachments/assets/66b05baf-414b-4cac-b7e7-fc4ac8fe9e63" />
