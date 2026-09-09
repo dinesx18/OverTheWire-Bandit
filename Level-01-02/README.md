@@ -63,6 +63,9 @@ This means there is a file in the home directory whose filename is simply:
 
 ## 🔎 Step 2 — Why `cat -` Is Different
 
+<img width="1722" height="112" alt="image" src="https://github.com/user-attachments/assets/6f5cea05-2e94-4584-8a28-d51bde41b1e9" />
+
+
 Normally, I can read a file using:
 
 ```bash
