@@ -4,11 +4,28 @@
 
 ## 🔐 Step 1 — Connect to Bandit Level 1
 
-I connected to the Bandit Level 1 account using:
+Now that I have the password for the next level, I need to log in as `bandit1`.
+
+The username changes from:
+
+```text
+bandit0
+```
+
+to:
+
+```text
+bandit1
+```
+
+I use the same Bandit server and SSH port that I learned in Level 0.
+
+The command is:
 
 ```bash
 ssh bandit1@bandit.labs.overthewire.org -p 2220
 ```
+
 
 After running the command, the server asked me to enter the password:
 ```bash
