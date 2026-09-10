@@ -168,8 +168,9 @@ to see it.
 ### 📖 Step 5 — Read the Hidden File
 
 Now that I found the hidden file, I used:
-
-cat .hidden
+```
+cat ...Hiding-From-You
+```
 🔎 Breaking Down the Command
 ```
 cat ...Hiding-From-You
@@ -178,7 +179,7 @@ cat ...Hiding-From-You
 └────── Display the file contents
 ```
 cat → Displays the contents of a file.
-.hidden → The hidden file containing the password.
+...Hiding-From-You → The hidden file containing the password.
 
 The command displays the password for Bandit Level 4.
 
@@ -200,15 +201,15 @@ bandit4
 
 
 ## 🧠 What I Learned
-- ls → Lists the files and directories in the current directory.
-- cd → Changes the current directory.
-- cd inhere → Enters the inhere directory.
-- ls -la → Shows all files, including hidden files, with detailed information.
-- -a → Shows hidden files.
-- ...Hiding-From-You → A hidden file because its name starts with ..
-- cat → Displays the contents of a file.
-- cat .hidden → Reads the hidden file.
-- Hidden files → Files beginning with . are normally not shown by a normal ls command.
+- `ls` → Lists the files and directories in the current directory.
+- `cd` → Changes the current directory.
+- `cd inhere` → Enters the inhere directory.
+- `ls -la or ll` → Shows all files, including hidden files, with detailed information.
+- `-a` → Shows hidden files.
+- `...Hiding-From-You` → The hidden file containing the password.
+- `cat` → Displays the contents of a file.
+- `cat ...Hiding-From-You` → Reads the hidden file.
+- Hidden files → Files beginning with `.` are normally not shown by a normal `ls` command.
 ## 🎓 Key Takeaway
 
 The important commands I learned in this level were:
