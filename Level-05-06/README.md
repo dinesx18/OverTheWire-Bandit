@@ -1,6 +1,7 @@
 # 🏴 Bandit Level 5 → Level 6
 
-<img width="1407" height="355" alt="Bandit Level 5 → Level 6" src="YOUR_SCREENSHOT_LINK_HERE" />
+<img width="1382" height="423" alt="image" src="https://github.com/user-attachments/assets/b960f15e-8f51-41be-a90b-9985702bb6ed" />
+
 
 ---
 
@@ -465,13 +466,11 @@ I then use this password to log in as:
 bandit6
 ```
 
-> ⚠️ I am not publishing the actual password in this GitHub README.
-
 ---
 
 ## 🖥️ Terminal Screenshot
 
-<img width="1717" height="657" alt="Bandit Level 5 Terminal" src="YOUR_SCREENSHOT_LINK_HERE" />
+<img width="1912" height="255" alt="image" src="https://github.com/user-attachments/assets/6952d429-7215-4acf-990c-a56354909ad9" />
 
 ---
 
@@ -550,6 +549,9 @@ Searches for files that are not executable.
 ---
 
 ### `cat`
+
+<img width="1716" height="467" alt="image" src="https://github.com/user-attachments/assets/2ae4fd64-6519-4da0-876a-1a4867aa9c61" />
+
 
 ```bash
 cat ./maybehere07/.file2
