@@ -94,7 +94,7 @@ I can solve this by putting the filename inside quotation marks:
 ```
 cat -- "--spaces in this filename--"
 ```
-### 🔎 Breaking Down the Command
+## 🔎 Breaking Down the Command
 
 ```text
 cat -- "--spaces in this filename--"
