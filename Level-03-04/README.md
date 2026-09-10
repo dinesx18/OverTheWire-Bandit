@@ -93,13 +93,14 @@ bandit3@bandit:~/inhere$
 │       │       └────────── Current directory: `inhere`
 │       └────────────────── Hostname: `bandit`
 └────────────────────────── Username: `bandit3`
+```
 bandit3 → The user I am currently logged in as.
 @ → Separates the username from the hostname.
 bandit → The hostname of the Bandit server.
 : → Separates the hostname from the current directory.
 ~/inhere → I am inside the inhere directory in the user's home directory.
 $ → Indicates that the terminal is ready to accept a command.
-```
+
 ## 🔎 Step 3 — Check for Hidden Files
 
 <img width="358" height="62" alt="image" src="https://github.com/user-attachments/assets/b6ad4b2f-4d4a-48b5-b1e7-8a693c3948b8" />
