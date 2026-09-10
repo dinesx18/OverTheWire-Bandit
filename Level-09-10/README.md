@@ -232,7 +232,7 @@ I can use `grep`.
 The command is:
 
 ```bash
-strings data.txt | grep "===="
+strings data.txt | grep "="
 ```
 
 ---
@@ -240,7 +240,7 @@ strings data.txt | grep "===="
 ## 🧩 Breaking Down the Command
 
 ```text
-strings data.txt | grep "===="
+strings data.txt | grep "="
 │               │  │    │
 │               │  │    └── Text pattern to search
 │               │  └─────── Search command
@@ -271,7 +271,7 @@ The pipe sends the output of one command into another command.
 So:
 
 ```bash
-strings data.txt | grep "===="
+strings data.txt | grep "="
 ```
 
 works like:
@@ -283,7 +283,7 @@ Readable strings
        ↓
        |
        ↓
-grep "===="
+grep "="
        ↓
 Matching lines
 ```
@@ -300,10 +300,10 @@ grep
 
 ---
 
-## `====`
+## `=`
 
 ```text
-====
+=
 ```
 
 This is the pattern I am searching for.
@@ -319,7 +319,7 @@ So I search for lines containing multiple `=` characters.
 I run:
 
 ```bash
-strings data.txt | grep "===="
+strings data.txt | grep "="
 ```
 
 The command filters the readable strings and displays the lines containing several `=` characters.
@@ -335,7 +335,7 @@ The output contains the line with the password.
 The important result has the following structure:
 
 ```text
-========== PASSWORD
+= PASSWORD
 ```
 
 The readable text after the `=` characters is the password.
@@ -346,10 +346,12 @@ I identify that value as the password for the next level.
 
 # 🔑 Step 10 — Get the Password for Level 10
 
+<img width="1713" height="322" alt="image" src="https://github.com/user-attachments/assets/662f0f33-2730-494c-a89f-501c83fd3452" />
+
 The password found using:
 
 ```bash
-strings data.txt | grep "===="
+strings data.txt | grep "="
 ```
 
 is used to log in as:
@@ -366,7 +368,8 @@ I copy the password from my terminal and use it for the next level.
 
 # 🖥️ Terminal Screenshot
 
-<img width="1717" height="657" alt="Bandit Level 9 Terminal" src="YOUR_SCREENSHOT_LINK_HERE" />
+<img width="1718" height="538" alt="image" src="https://github.com/user-attachments/assets/ac77b44a-787d-4e9f-8c2e-476ebc14d0ae" />
+
 
 ---
 
@@ -427,7 +430,7 @@ Extracts human-readable strings from a file.
 ### `grep`
 
 ```bash
-grep "===="
+grep "="
 ```
 
 Searches for lines containing the specified pattern.
@@ -453,8 +456,8 @@ The pipe sends the output of one command into another command.
 | `file data.txt` | To check the file type |
 | `cat data.txt` | To understand what happens when viewing the file directly |
 | `strings data.txt` | To extract readable strings |
-| `grep "===="` | To search for strings containing several `=` characters |
-| `strings data.txt \| grep "===="` | To combine both operations and find the password |
+| `grep "="` | To search for strings containing several `=` characters |
+| `strings data.txt \| grep "="` | To combine both operations and find the password |
 
 ---
 
@@ -465,7 +468,7 @@ This level taught me how to find readable text inside a file containing binary d
 The important command is:
 
 ```bash
-strings data.txt | grep "===="
+strings data.txt | grep "="
 ```
 
 First:
@@ -479,7 +482,7 @@ extracts the human-readable strings.
 Then:
 
 ```bash
-grep "===="
+grep "="
 ```
 
 filters those strings and shows the lines containing several `=` characters.
@@ -501,7 +504,7 @@ strings
    ↓
 Extract readable strings
    ↓
-grep "===="
+grep "="
    ↓
 Find strings with several =
    ↓
@@ -535,7 +538,7 @@ strings data.txt
        ↓
 Extract readable strings
        ↓
-grep "===="
+grep "="
        ↓
 Find strings containing several =
        ↓
@@ -551,7 +554,7 @@ Password for bandit10
 The main command that solves this level is:
 
 ```bash
-strings data.txt | grep "===="
+strings data.txt | grep "="
 ```
 
 ### Command 1
@@ -565,7 +568,7 @@ Extracts human-readable strings from `data.txt`.
 ### Command 2
 
 ```bash
-grep "===="
+grep "="
 ```
 
 Searches for strings containing several `=` characters.
@@ -573,7 +576,7 @@ Searches for strings containing several `=` characters.
 ### Combined Command
 
 ```bash
-strings data.txt | grep "===="
+strings data.txt | grep "="
 ```
 
 This reveals the readable string containing the password for:
