@@ -118,7 +118,11 @@ This is because normal ls does not show hidden files.
 
 So I used:
 ```
-ls -la or ll
+ls -la
+```
+or
+```
+ll
 ```
 ### 🔎 Breaking Down the Command
 ```
@@ -162,7 +166,11 @@ ls
 ```
 I needed to use:
 ```
-ls -la or ll
+ls -la
+```
+or 
+```
+ll
 ```
 to see it.
 
@@ -217,15 +225,15 @@ The important commands I learned in this level were:
 ```
 cd inhere
 ls -la
-cat .hidden
+cat ...Hiding-From-You
 ```
 The -a option in ls -la allows me to see hidden files that are not normally displayed.
 
-The password is stored inside the .hidden file.
+The password is stored inside the ...Hiding-From-You file.
 
 ## ➡️ Next
 
-The password found in the .hidden file is used to continue to:
+The password found in the ...Hiding-From-You file is used to continue to:
 
 Bandit Level 4 → Level 5
 
@@ -243,9 +251,9 @@ SSH as bandit3
        ↓
     ls -la
        ↓
-   find .hidden
+   find ...Hiding-From-You
        ↓
-  cat .hidden
+  cat ...Hiding-From-You
        ↓
 Password for bandit4
 ```
