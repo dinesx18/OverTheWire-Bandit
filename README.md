@@ -17,6 +17,8 @@ Learn Linux command-line basics and cybersecurity concepts through hands-on chal
 
 ## 📚 Levels Completed
 
+## 📚 Bandit Levels
+
 * [Level 0](./Level-00/)
 * [Level 0 → Level 1](./Level-00-01/)
 * [Level 1 → Level 2](./Level-01-02/)
@@ -24,6 +26,15 @@ Learn Linux command-line basics and cybersecurity concepts through hands-on chal
 * [Level 3 → Level 4](./Level-03-04/)
 * [Level 4 → Level 5](./Level-04-05/)
 * [Level 5 → Level 6](./Level-05-06/)
+* [Level 6 → Level 7](./Level-06-07/)
+* [Level 7 → Level 8](./Level-07-08/)
+* [Level 8 → Level 9](./Level-08-09/)
+* [Level 9 → Level 10](./Level-09-10/)
+* [Level 10 → Level 11](./Level-10-11/)
+* [Level 11 → Level 12](./Level-11-12/)
+* [Level 12 → Level 13](./Level-12-13/)
+* [Level 13 → Level 14](./Level-13-14/)
+* [Level 14 → Level 15](./Level-14-15/)
 
 ## 🧠 What I’m Learning
 
