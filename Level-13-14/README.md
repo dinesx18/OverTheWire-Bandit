@@ -1,38 +1,43 @@
-# 🏴 Bandit Level 12 → Level 13
+# 🏴 Bandit Level 13 → Level 14
 
-<img width="1600" height="500" alt="Bandit Level 12 to 13" src="YOUR_SCREENSHOT_LINK_HERE" />
+<img width="1606" height="595" alt="image" src="https://github.com/user-attachments/assets/bfc4c60e-c0ac-4a99-b628-47bd74c19968" />
+
 
 ---
 
 ## 🎯 Goal
 
-The password for the next level is stored in the file:
+The password for the next level is stored in:
 
 ```text
-data.txt
+/etc/bandit_pass/bandit14
 ```
 
-The file `data.txt` is a **hexdump of a file that has been repeatedly compressed**.
+However, this file can only be read by the user:
 
-For this level, we need to:
+```text
+bandit14
+```
 
-1. Create a temporary directory.
-2. Copy `data.txt` into the temporary directory.
-3. Reverse the hexdump using `xxd`.
-4. Identify the file type using `file`.
-5. Decompress or extract the file.
-6. Check the file type again.
-7. Repeat the process until we reach normal ASCII text.
-8. Read the password for **Bandit Level 13**.
+For this level, we are **not given the password directly**.
+
+Instead, the home directory contains a **private SSH key** that can be used to log in to the next level.
+
+The main task is to:
+
+1. Log in to `bandit13`.
+2. Find the private SSH key in the home directory.
+3. Use the private key to log in as `bandit14`.
+4. Read the password from `/etc/bandit_pass/bandit14`.
 
 ---
 
-## 🔐 Step 1 — Connect to Bandit Level 12
+## 🔐 Step 1 — Connect to Bandit Level 13
 
-First, connect to the Bandit Level 12 account using SSH.
+First, connect to the Bandit Level 13 account using SSH.
 
 ```bash
-ssh bandit12@bandit.labs.overthewire.org -p 2220
+ssh bandit13@bandit.labs.overthewire.org -p 2220
 ```
 
 ### Command Breakdown
@@ -44,10 +49,10 @@ ssh
 Used to securely connect to a remote computer.
 
 ```text
-bandit12
+bandit13
 ```
 
-The username for Level 12.
+The username for Level 13.
 
 ```text
 @
@@ -74,13 +79,13 @@ Specifies SSH port `2220`.
 After running the SSH command, the terminal asks for the password.
 
 ```text
-bandit12@bandit.labs.overthewire.org's password:
+bandit13@bandit.labs.overthewire.org's password:
 ```
 
 Enter the password obtained from:
 
 ```text
-Bandit Level 11 → Level 12
+Bandit Level 12 → Level 13
 ```
 
 > ⚠️ The password is intentionally not included in this GitHub writeup.
@@ -88,7 +93,7 @@ Bandit Level 11 → Level 12
 If the password is correct, you will successfully log in as:
 
 ```text
-bandit12
+bandit13
 ```
 
 ---
@@ -111,10 +116,10 @@ Print Working Directory
 
 It shows the directory where you are currently working.
 
-You should see something similar to:
+You should see:
 
 ```text
-/home/bandit12
+/home/bandit13
 ```
 
 ---
@@ -127,684 +132,168 @@ Run:
 ls
 ```
 
-You should see:
+You should see a file similar to:
 
 ```text
-data.txt
+sshkey.private
 ```
+
+This is the **private SSH key** provided for this level.
 
 ---
 
-## 📄 Step 5 — Check the File Type
+## 🔍 Step 5 — Check the Private Key
 
 Run:
 
 ```bash
-file data.txt
+file sshkey.private
+```
+
+The output should identify it as a private key.
+
+You can also inspect the beginning of the key with:
+
+```bash
+head sshkey.private
 ```
 
 You should see something similar to:
 
 ```text
-data.txt: ASCII text
+-----BEGIN RSA PRIVATE KEY-----
 ```
 
-Although the file is detected as ASCII text, its contents are actually a **hexdump**.
+The exact key contents should **not** be published in your GitHub repository.
 
 ---
 
-## 📁 Step 6 — Create a Temporary Directory
+## 🔐 Step 6 — Understand the Private SSH Key
 
-The level recommends creating a temporary directory because we will be creating and modifying several files.
+A private SSH key can be used to authenticate to an SSH server without entering a password.
+
+Instead of:
+
+```bash
+ssh username@server
+```
+
+we can specify a private key using:
+
+```bash
+ssh -i private_key username@server
+```
+
+The:
+
+```text
+-i
+```
+
+option tells SSH which private key to use.
+
+---
+
+## 🔑 Step 7 — Use the Private Key
+
+We need to use the private key to log in as:
+
+```text
+bandit14
+```
 
 Run:
 
 ```bash
-mktemp -d
+ssh -i sshkey.private bandit14@localhost -p 2220
 ```
 
-Example output:
+### Command Breakdown
 
 ```text
-/tmp/tmp.abc123
+ssh
 ```
 
-> ⚠️ Your temporary directory name will be different.
-
-### What does `mktemp -d` do?
+Starts an SSH connection.
 
 ```text
-mktemp
+-i sshkey.private
 ```
 
-Creates a temporary file or directory.
+Tells SSH to use `sshkey.private` as the identity/private key.
 
 ```text
--d
+bandit14
 ```
 
-Tells `mktemp` to create a directory.
+The username we want to log in as.
 
-Therefore:
-
-```bash
-mktemp -d
+```text
+@
 ```
 
-creates a temporary directory with a random name.
+Separates the username from the hostname.
+
+```text
+localhost
+```
+
+Means the current machine.
+
+The Bandit levels are running on the same server, so we can connect to the next account through `localhost`.
+
+```text
+-p 2220
+```
+
+Uses SSH port `2220`.
 
 ---
 
-## 📋 Step 7 — Copy `data.txt`
-
-Suppose your temporary directory is:
-
-```text
-/tmp/tmp.abc123
-```
-
-Copy `data.txt` into it:
-
-```bash
-cp data.txt /tmp/tmp.abc123/
-```
-
-> ⚠️ Replace `/tmp/tmp.abc123/` with the actual directory name you received from `mktemp -d`.
-
-### What does `cp` do?
-
-```text
-cp
-```
-
-means **copy**.
-
-This command:
-
-```bash
-cp data.txt /tmp/tmp.abc123/
-```
-
-copies `data.txt` into the temporary directory.
-
----
-
-## 📂 Step 8 — Enter the Temporary Directory
+## 🖥️ Step 8 — Connect to Bandit Level 14
 
 Run:
 
 ```bash
-cd /tmp/tmp.abc123
+ssh -i sshkey.private bandit14@localhost -p 2220
 ```
 
-Replace the directory name with your actual temporary directory.
+If everything is correct, SSH will authenticate using the private key.
 
-Then run:
-
-```bash
-ls
-```
-
-You should see:
+You should now be logged in as:
 
 ```text
-data.txt
+bandit14
+```
+
+You can verify this using:
+
+```bash
+whoami
+```
+
+The output should be:
+
+```text
+bandit14
 ```
 
 ---
 
-## 🔄 Step 9 — Reverse the Hexdump
+## 🔍 Step 9 — Read the Password File
 
-Now we need to convert the hexdump back into the original binary file.
+The level tells us that the password is stored in:
+
+```text
+/etc/bandit_pass/bandit14
+```
+
+Now that we are logged in as `bandit14`, we can read the file.
 
 Run:
 
 ```bash
-xxd -r data.txt data
-```
-
-### What does `xxd` do?
-
-`xxd` is used to create hexadecimal dumps and to convert hexadecimal data back into binary.
-
-The option:
-
-```text
--r
-```
-
-means:
-
-```text
-reverse
-```
-
-Therefore:
-
-```bash
-xxd -r data.txt data
-```
-
-takes the hexdump from:
-
-```text
-data.txt
-```
-
-and creates the original binary file:
-
-```text
-data
-```
-
----
-
-## 🔍 Step 10 — Identify the File
-
-Run:
-
-```bash
-file data
-```
-
-The output should identify the first compression format.
-
-It should look similar to:
-
-```text
-data: gzip compressed data
-```
-
-This tells us that the file is compressed using:
-
-```text
-gzip
-```
-
----
-
-## 🗜️ Step 11 — Rename the File
-
-Rename the file:
-
-```bash
-mv data data.gz
-```
-
-### What does `mv` do?
-
-```text
-mv
-```
-
-means **move**.
-
-It can also be used to rename files.
-
-Here:
-
-```bash
-mv data data.gz
-```
-
-renames:
-
-```text
-data
-```
-
-to:
-
-```text
-data.gz
-```
-
----
-
-## 📦 Step 12 — Decompress the Gzip File
-
-Run:
-
-```bash
-gzip -d data.gz
-```
-
-### What does `gzip -d` do?
-
-```text
-gzip
-```
-
-works with gzip-compressed files.
-
-```text
--d
-```
-
-means:
-
-```text
-decompress
-```
-
-So:
-
-```bash
-gzip -d data.gz
-```
-
-decompresses the file and produces:
-
-```text
-data
-```
-
----
-
-## 🔍 Step 13 — Check the File Again
-
-Run:
-
-```bash
-file data
-```
-
-Now the file should be identified as:
-
-```text
-data: bzip2 compressed data
-```
-
-The next compression format is:
-
-```text
-bzip2
-```
-
----
-
-## 🗜️ Step 14 — Rename the Bzip2 File
-
-Run:
-
-```bash
-mv data data.bz2
-```
-
-This changes the filename from:
-
-```text
-data
-```
-
-to:
-
-```text
-data.bz2
-```
-
----
-
-## 📦 Step 15 — Decompress the Bzip2 File
-
-Run:
-
-```bash
-bzip2 -d data.bz2
-```
-
-### What does `bzip2 -d` do?
-
-```text
-bzip2
-```
-
-works with bzip2-compressed files.
-
-```text
--d
-```
-
-means:
-
-```text
-decompress
-```
-
-After decompression, we get:
-
-```text
-data
-```
-
----
-
-## 🔍 Step 16 — Check the File Again
-
-Run:
-
-```bash
-file data
-```
-
-The output should indicate:
-
-```text
-data: gzip compressed data
-```
-
-So the file is compressed with gzip again.
-
----
-
-## 🗜️ Step 17 — Rename the File
-
-Run:
-
-```bash
-mv data data.gz
-```
-
----
-
-## 📦 Step 18 — Decompress the Gzip File
-
-Run:
-
-```bash
-gzip -d data.gz
-```
-
----
-
-## 🔍 Step 19 — Check the File Again
-
-Run:
-
-```bash
-file data
-```
-
-Now the output should show:
-
-```text
-data: POSIX tar archive
-```
-
-This means the file is a **TAR archive**.
-
----
-
-## 📦 Step 20 — Rename the TAR Archive
-
-Run:
-
-```bash
-mv data data.tar
-```
-
----
-
-## 📂 Step 21 — Extract the TAR Archive
-
-Run:
-
-```bash
-tar -xf data.tar
-```
-
-### What does `tar -xf` do?
-
-```text
-tar
-```
-
-is used to create and extract archive files.
-
-```text
--x
-```
-
-means:
-
-```text
-extract
-```
-
-```text
--f
-```
-
-means:
-
-```text
-use the specified archive file
-```
-
-Therefore:
-
-```bash
-tar -xf data.tar
-```
-
-extracts the contents of `data.tar`.
-
-Now run:
-
-```bash
-ls
-```
-
-You should see another file:
-
-```text
-data5.bin
-```
-
----
-
-## 🔍 Step 22 — Identify `data5.bin`
-
-Run:
-
-```bash
-file data5.bin
-```
-
-The output should indicate:
-
-```text
-data5.bin: POSIX tar archive
-```
-
-So this is another TAR archive.
-
----
-
-## 📦 Step 23 — Extract `data5.bin`
-
-Run:
-
-```bash
-tar -xf data5.bin
-```
-
-Then:
-
-```bash
-ls
-```
-
-You should now see:
-
-```text
-data6.bin
-```
-
----
-
-## 🔍 Step 24 — Identify `data6.bin`
-
-Run:
-
-```bash
-file data6.bin
-```
-
-The output should indicate:
-
-```text
-data6.bin: bzip2 compressed data
-```
-
-So the file is compressed using **bzip2**.
-
----
-
-## 🗜️ Step 25 — Rename `data6.bin`
-
-Run:
-
-```bash
-mv data6.bin data6.bz2
-```
-
----
-
-## 📦 Step 26 — Decompress `data6.bz2`
-
-Run:
-
-```bash
-bzip2 -d data6.bz2
-```
-
-This produces:
-
-```text
-data6
-```
-
----
-
-## 🔍 Step 27 — Check `data6`
-
-Run:
-
-```bash
-file data6
-```
-
-The output should indicate:
-
-```text
-data6: POSIX tar archive
-```
-
-So `data6` is another TAR archive.
-
----
-
-## 🗜️ Step 28 — Rename the TAR Archive
-
-Run:
-
-```bash
-mv data6 data6.tar
-```
-
----
-
-## 📦 Step 29 — Extract `data6.tar`
-
-Run:
-
-```bash
-tar -xf data6.tar
-```
-
-Then run:
-
-```bash
-ls
-```
-
-You should now see:
-
-```text
-data8.bin
-```
-
----
-
-## 🔍 Step 30 — Identify `data8.bin`
-
-Run:
-
-```bash
-file data8.bin
-```
-
-The output should indicate:
-
-```text
-data8.bin: gzip compressed data
-```
-
-So this file is compressed using gzip.
-
----
-
-## 🗜️ Step 31 — Rename `data8.bin`
-
-Run:
-
-```bash
-mv data8.bin data8.gz
-```
-
----
-
-## 📦 Step 32 — Decompress `data8.gz`
-
-Run:
-
-```bash
-gzip -d data8.gz
-```
-
-This produces:
-
-```text
-data8
-```
-
----
-
-## 🔍 Step 33 — Check the Final File
-
-Run:
-
-```bash
-file data8
-```
-
-Now the output should be:
-
-```text
-data8: ASCII text
-```
-
-🎉 We have finally reached normal text!
-
----
-
-## 🔓 Step 34 — Read the Password
-
-Run:
-
-```bash
-cat data8
+cat /etc/bandit_pass/bandit14
 ```
 
 ### What does `cat` do?
@@ -815,10 +304,18 @@ cat
 
 displays the contents of a file in the terminal.
 
-The output is the password for:
+The command:
+
+```bash
+cat /etc/bandit_pass/bandit14
+```
+
+reads the password file for Level 14.
+
+The output is the password needed for:
 
 ```text
-bandit13
+bandit14
 ```
 
 > 🔐 Do not publish the actual password in your GitHub repository.
@@ -827,83 +324,53 @@ bandit13
 
 # 🖥️ Complete Command Sequence
 
+## Connect to Level 13
+
 ```bash
-ssh bandit12@bandit.labs.overthewire.org -p 2220
-
-pwd
-
-ls
-
-file data.txt
-
-mktemp -d
-
-cp data.txt /tmp/tmp.XXXXXX/
-
-cd /tmp/tmp.XXXXXX/
-
-ls
-
-xxd -r data.txt data
-
-file data
-
-mv data data.gz
-
-gzip -d data.gz
-
-file data
-
-mv data data.bz2
-
-bzip2 -d data.bz2
-
-file data
-
-mv data data.gz
-
-gzip -d data.gz
-
-file data
-
-mv data data.tar
-
-tar -xf data.tar
-
-ls
-
-file data5.bin
-
-tar -xf data5.bin
-
-ls
-
-file data6.bin
-
-mv data6.bin data6.bz2
-
-bzip2 -d data6.bz2
-
-file data6
-
-mv data6 data6.tar
-
-tar -xf data6.tar
-
-ls
-
-file data8.bin
-
-mv data8.bin data8.gz
-
-gzip -d data8.gz
-
-file data8
-
-cat data8
+ssh bandit13@bandit.labs.overthewire.org -p 2220
 ```
 
-> ⚠️ `/tmp/tmp.XXXXXX/` is only an example. Replace it with the actual directory name returned by `mktemp -d`.
+## Check the directory
+
+```bash
+pwd
+```
+
+## List the files
+
+```bash
+ls
+```
+
+## Check the private key
+
+```bash
+file sshkey.private
+```
+
+## View the beginning of the key
+
+```bash
+head sshkey.private
+```
+
+## Use the private key to log in to Level 14
+
+```bash
+ssh -i sshkey.private bandit14@localhost -p 2220
+```
+
+## Verify the current user
+
+```bash
+whoami
+```
+
+## Read the Level 14 password
+
+```bash
+cat /etc/bandit_pass/bandit14
+```
 
 ---
 
@@ -912,10 +379,10 @@ cat data8
 ## `ssh`
 
 ```bash
-ssh bandit12@bandit.labs.overthewire.org -p 2220
+ssh bandit13@bandit.labs.overthewire.org -p 2220
 ```
 
-Connects to the Bandit Level 12 server.
+Connects to the Bandit server using SSH.
 
 ---
 
@@ -942,329 +409,192 @@ Lists the files in the current directory.
 ## `file`
 
 ```bash
-file filename
+file sshkey.private
 ```
 
-Identifies the type of a file.
-
-This is one of the most important commands in this level.
+Identifies the type of the private key file.
 
 ---
 
-## `mktemp -d`
+## `head`
 
 ```bash
-mktemp -d
+head sshkey.private
 ```
 
-Creates a temporary directory.
+Displays the beginning of the private key file.
+
+It can be useful for confirming that the file contains an SSH private key.
 
 ---
 
-## `cp`
+## `ssh -i`
 
 ```bash
-cp source destination
+ssh -i sshkey.private bandit14@localhost -p 2220
 ```
 
-Copies a file.
+Uses the specified private key to authenticate to the SSH server.
+
+The important part is:
+
+```text
+-i sshkey.private
+```
+
+which tells SSH to use the private key.
+
+---
+
+## `whoami`
+
+```bash
+whoami
+```
+
+Displays the username of the current user.
 
 Example:
 
-```bash
-cp data.txt /tmp/tmp.XXXXXX/
+```text
+bandit14
 ```
-
----
-
-## `cd`
-
-```bash
-cd directory
-```
-
-Changes the current directory.
-
----
-
-## `xxd -r`
-
-```bash
-xxd -r data.txt data
-```
-
-Reverses the hexdump and creates the original binary file.
-
----
-
-## `mv`
-
-```bash
-mv old_name new_name
-```
-
-Moves or renames a file.
-
-Examples:
-
-```bash
-mv data data.gz
-```
-
-```bash
-mv data data.bz2
-```
-
-```bash
-mv data data.tar
-```
-
----
-
-## `gzip -d`
-
-```bash
-gzip -d file.gz
-```
-
-Decompresses a gzip file.
-
----
-
-## `bzip2 -d`
-
-```bash
-bzip2 -d file.bz2
-```
-
-Decompresses a bzip2 file.
-
----
-
-## `tar -xf`
-
-```bash
-tar -xf file.tar
-```
-
-Extracts the contents of a TAR archive.
 
 ---
 
 ## `cat`
 
 ```bash
-cat data8
+cat /etc/bandit_pass/bandit14
 ```
 
-Displays the contents of the final text file.
+Displays the contents of the password file.
 
 ---
 
-# 🧠 Why We Used `file` Again and Again
+# 🔐 How SSH Key Authentication Works
 
-The file is compressed repeatedly using different formats.
-
-After every decompression, we do not automatically know what the next format is.
-
-Therefore, we use:
-
-```bash
-file data
-```
-
-to identify the next format.
-
-The process is:
+Normally, we connect using a username and password:
 
 ```text
-file
- ↓
-Identify the format
- ↓
-Rename if necessary
- ↓
-Decompress / extract
- ↓
-file again
- ↓
-Repeat
+Username
+    +
+Password
+    ↓
+SSH Server
+    ↓
+Login
 ```
 
----
-
-# 🔄 Compression Chain
-
-The complete chain is:
+In this level, we use a private SSH key instead:
 
 ```text
-data.txt
-   ↓
-Hexdump
-   ↓
-xxd -r
-   ↓
-gzip
-   ↓
-bzip2
-   ↓
-gzip
-   ↓
-tar
-   ↓
-tar
-   ↓
-bzip2
-   ↓
-tar
-   ↓
-gzip
-   ↓
-ASCII text
-   ↓
-cat
-   ↓
-Password for bandit13 🔓
+Private SSH Key
+       ↓
+SSH Authentication
+       ↓
+bandit14
+       ↓
+Login
 ```
 
----
-
-# 🔄 Step-by-Step Format Table
-
-| Step | File | Format | Action |
-|------|------|--------|--------|
-| 1 | `data.txt` | Hexdump | `xxd -r` |
-| 2 | `data` | gzip | `gzip -d` |
-| 3 | `data` | bzip2 | `bzip2 -d` |
-| 4 | `data` | gzip | `gzip -d` |
-| 5 | `data` | TAR | `tar -xf` |
-| 6 | `data5.bin` | TAR | `tar -xf` |
-| 7 | `data6.bin` | bzip2 | `bzip2 -d` |
-| 8 | `data6` | TAR | `tar -xf` |
-| 9 | `data8.bin` | gzip | `gzip -d` |
-| 10 | `data8` | ASCII text | `cat` |
+The private key replaces the need to enter the Bandit password directly.
 
 ---
 
 # 🧠 What I Learned
 
-## 1. Hexdump
+## 1. SSH Private Keys
 
-A hexdump represents binary data using hexadecimal values.
-
-We can reverse a hexdump using:
-
-```bash
-xxd -r
-```
-
----
-
-## 2. `file`
-
-The `file` command identifies the type of a file.
+A private SSH key can be used to authenticate to an SSH server.
 
 Example:
 
 ```bash
-file data
-```
-
-It can tell us whether the file is:
-
-```text
-gzip compressed data
-```
-
-or:
-
-```text
-bzip2 compressed data
-```
-
-or:
-
-```text
-POSIX tar archive
-```
-
-or:
-
-```text
-ASCII text
+ssh -i sshkey.private user@server
 ```
 
 ---
 
-## 3. Gzip
+## 2. The `-i` Option
 
-Gzip is a compression format.
-
-To decompress:
-
-```bash
-gzip -d file.gz
-```
-
----
-
-## 4. Bzip2
-
-Bzip2 is another compression format.
-
-To decompress:
-
-```bash
-bzip2 -d file.bz2
-```
-
----
-
-## 5. TAR
-
-TAR is an archive format used to package files together.
-
-To extract:
-
-```bash
-tar -xf file.tar
-```
-
----
-
-## 6. `mv`
-
-`mv` can move or rename files.
+The `-i` option specifies the private key that SSH should use.
 
 Example:
 
 ```bash
-mv data data.gz
+ssh -i sshkey.private bandit14@localhost -p 2220
 ```
+
+Here:
+
+```text
+-i
+```
+
+means use an identity/private key.
+
+```text
+sshkey.private
+```
+
+is the private key file.
 
 ---
 
-## 7. `cp`
+## 3. `localhost`
 
-`cp` copies files.
+`localhost` refers to the current machine.
+
+In this level, we use:
+
+```bash
+bandit14@localhost
+```
+
+because the next Bandit account is on the same server.
+
+---
+
+## 4. SSH Key Authentication
+
+SSH supports authentication using cryptographic keys.
+
+The private key is kept secret and is used to prove that we are authorized to access the account.
+
+---
+
+## 5. `whoami`
+
+The `whoami` command tells us which user account we are currently using.
 
 Example:
 
 ```bash
-cp data.txt /tmp/tmp.XXXXXX/
+whoami
+```
+
+Output:
+
+```text
+bandit14
 ```
 
 ---
 
-## 8. Temporary Directories
+## 6. Password Files
 
-`mktemp -d` creates a temporary working directory.
+Bandit stores level passwords in:
 
-```bash
-mktemp -d
+```text
+/etc/bandit_pass/
 ```
 
-This is useful when working with multiple temporary files.
+For this level, the required password file is:
+
+```text
+/etc/bandit_pass/bandit14
+```
 
 ---
 
@@ -1275,44 +605,73 @@ This is useful when working with multiple temporary files.
 | `ssh` | Connect to the Bandit server |
 | `pwd` | Show the current directory |
 | `ls` | List files |
-| `file` | Identify the file format |
-| `mktemp -d` | Create a temporary directory |
-| `cp` | Copy `data.txt` |
-| `cd` | Enter the temporary directory |
-| `xxd -r` | Reverse the hexdump |
-| `mv` | Rename files |
-| `gzip -d` | Decompress gzip files |
-| `bzip2 -d` | Decompress bzip2 files |
-| `tar -xf` | Extract TAR archives |
-| `cat` | Display the final password |
+| `file` | Identify the private key file |
+| `head` | Display the beginning of the key |
+| `ssh -i` | Authenticate using the private SSH key |
+| `whoami` | Check the current username |
+| `cat` | Read the password file |
+
+---
+
+# 🔄 Complete Process
+
+```text
+Bandit Level 13
+       ↓
+      ssh
+       ↓
+Login using bandit13 password
+       ↓
+      ls
+       ↓
+sshkey.private
+       ↓
+Private SSH Key
+       ↓
+ssh -i sshkey.private
+       ↓
+bandit14@localhost
+       ↓
+Bandit Level 14
+       ↓
+cat /etc/bandit_pass/bandit14
+       ↓
+Password for Bandit Level 14 🔓
+```
 
 ---
 
 # 🏁 Final Solution
 
-The final command is:
+The important command for this level is:
 
 ```bash
-cat data8
+ssh -i sshkey.private bandit14@localhost -p 2220
 ```
 
-This displays the password needed to log in to:
+After successfully logging in as `bandit14`, read the password using:
 
-```text
-bandit13
+```bash
+cat /etc/bandit_pass/bandit14
 ```
+
+The output is the password needed for the next level.
 
 ---
 
 # ➡️ Next Level
 
-After getting the password, connect to **Bandit Level 13**:
+After getting the password, you can connect to **Bandit Level 14** using the normal Bandit server connection:
 
 ```bash
-ssh bandit13@bandit.labs.overthewire.org -p 2220
+ssh bandit14@bandit.labs.overthewire.org -p 2220
 ```
 
-Enter the password obtained from Level 12.
+Enter the password obtained from:
+
+```text
+/etc/bandit_pass/bandit14
+```
 
 ---
 
@@ -1323,14 +682,8 @@ ssh
 pwd
 ls
 file
-mktemp
-cp
-cd
-xxd
-mv
-gzip
-bzip2
-tar
+head
+whoami
 cat
 ```
 
@@ -1339,33 +692,17 @@ cat
 # ⭐ Level Completed
 
 ```text
-Bandit Level 12
+Bandit Level 13
        ↓
-    data.txt
+   sshkey.private
        ↓
-    Hexdump
+ Private SSH Key
        ↓
-     xxd -r
+ssh -i sshkey.private
        ↓
-      gzip
+   bandit14
        ↓
-     bzip2
+cat /etc/bandit_pass/bandit14
        ↓
-      gzip
-       ↓
-      tar
-       ↓
-      tar
-       ↓
-     bzip2
-       ↓
-      tar
-       ↓
-      gzip
-       ↓
-  ASCII text
-       ↓
-      cat
-       ↓
-Bandit Level 13 🔓
+Bandit Level 14 🔓
 ```
